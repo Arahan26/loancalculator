@@ -18,13 +18,33 @@ function calculateResults(){
   const amountEL = document.getElementById('amount');
   const interestEL = document.getElementById('interest');
   const yearsEL = document.getElementById('years');
+  const monthsEL = document.getElementById('month');
   const monthlyPaymentEL = document.getElementById('monthly-payment');
   const totalPaymentEL = document.getElementById('total-payment');
   const totalInterestEL = document.getElementById('total-interest');
 
+  //const duration = getDuration();
+  var yearVal = parseFloat(yearsEL.value);
+  var monthVal = parseFloat(monthsEL.value);
+  if(yearsEL.value != ""){
+    yearVal = parseFloat(yearsEL.value);
+  } else if(monthsEL.value != ""){
+    yearVal = 0;
+  }else{
+    monthVal = 3;
+    yearVal = 0;
+  } 
+
+  if(monthsEL.value != ""){
+    monthVal = parseFloat(monthsEL.value)/12;
+  }else{
+    monthVal = 0;
+  };
+  const duration = yearVal+monthVal;
+
   const principal = parseFloat(amountEL.value);
   const calculatedInterest = parseFloat(interestEL.value) / 100 /12;
-  const calculatedPayments = parseFloat(yearsEL.value) * 12;
+  const calculatedPayments = duration * 12;
 
   //Compute monthly payment
   const x = Math.pow(1 + calculatedInterest, calculatedPayments);
@@ -77,3 +97,4 @@ function showError(error){
 function clearError(){
   document.querySelector('.alert').remove();
 }
+
